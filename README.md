@@ -1,6 +1,6 @@
 # Promise performance improvements in Node.js (v8.10.0)
 
-The script triest to emulate processin a matrix of records. EG:
+The script tries to emulate processing a matrix of records. EG:
 ```javascript
 const records = [[1, 2], [3, 4]];
 ```
@@ -28,7 +28,7 @@ $ npm i bluebird
 const Promise = require('bluebird');
 ```
 ### Observation
-Memory usage droped by about 30%, now uses ~66.5MB but still doesn't seem to free up. Why? Because we technically have all the promises in flight at the same time and each one is an object which uses some memory. https://stackoverflow.com/questions/46654265/promise-all-consumes-all-my-ram
+Memory usage dropped by about 30%, now uses ~66.5MB but still doesn't seem to free up. Why? Because we technically have all the promises in flight at the same time and each one is an object which uses some memory. https://stackoverflow.com/questions/46654265/promise-all-consumes-all-my-ram
 
 ```console
 Memory used after processing all records: 66.58 MB
@@ -75,3 +75,6 @@ Result:
 Memory used after processing all records: 19.05 MB
 Process time: 30126.845ms
 ```
+
+# Conclusion
+Processing a lot of data asynchronously could lead to memory being bloated. Bluebird library helps by giving the option to batch the request in subsets and ensure GC kicks in between batches.
