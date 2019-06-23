@@ -1,3 +1,5 @@
+const Promise = require('bluebird');
+
 // create test data
 const records = [];
 for (let i = 0; i < 100; i += 1) {

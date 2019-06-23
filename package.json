@@ -11,5 +11,8 @@
     "promise"
   ],
   "author": "Andy Ghiuta <andy.ghiuta@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.5"
+  }
 }
