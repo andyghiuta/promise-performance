@@ -1,0 +1,15 @@
+{
+  "name": "promise-performance",
+  "version": "0.1.0",
+  "description": "Testing Promise/Improving Promise performance in Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "promise"
+  ],
+  "author": "Andy Ghiuta <andy.ghiuta@gmail.com>",
+  "license": "MIT"
+}
