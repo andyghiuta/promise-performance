@@ -47,7 +47,11 @@ const processRecord = async (r) => {
 const processAllRecords = async () => {
   console.time('Process time');
   showMemoryUsage('before processing all records');
-  const resultAll = await Promise.all(records.map(processRecord));
+  const resultAll = await Promise.map(
+    records,
+    processRecord,
+    { concurrency: 10 },
+  );
   showMemoryUsage('after processing all records');
   console.timeEnd('Process time');
   return resultAll;

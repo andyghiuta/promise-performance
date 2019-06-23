@@ -34,3 +34,44 @@ Memory usage droped by about 30%, now uses ~66.5MB but still doesn't seem to fre
 Memory used after processing all records: 66.58 MB
 process: 3166.903ms
 ```
+
+## Step 2
+We need to limit the number of Promises in flight at a particular moment. This we surely increase the processing time, but will hopefully decrease memory usage. We're more interested in the latter for this particular case.
+Changes:
+Replace `Promise.all` with blubird's [Promise.map](http://bluebirdjs.com/docs/api/promise.map.html)
+
+This:
+```javascript
+// main function that processes all records
+const processAllRecords = async () => {
+  console.time('Process time');
+  showMemoryUsage('before processing all records');
+  const resultAll = await Promise.all(records.map(processRecord));
+  showMemoryUsage('after processing all records');
+  console.timeEnd('Process time');
+  return resultAll;
+};
+```
+
+Becomes:
+```javascript
+const processAllRecords = async () => {
+  console.time('Process time');
+  showMemoryUsage('before processing all records');
+  const resultAll = await Promise.map(
+    records,
+    processRecord,
+    { concurrency: 10 },
+  );
+  showMemoryUsage('after processing all records');
+  console.timeEnd('Process time');
+  return resultAll;
+};
+```
+Setting the `concurrency` option for `Promise.map` ensures we are not having more than the amount set at the same time in flight. 
+
+Result:
+```
+Memory used after processing all records: 19.05 MB
+Process time: 30126.845ms
+```
