@@ -29,3 +29,8 @@ const Promise = require('bluebird');
 ```
 ### Observation
 Memory usage droped by about 30%, now uses ~66.5MB but still doesn't seem to free up. Why? Because we technically have all the promises in flight at the same time and each one is an object which uses some memory. https://stackoverflow.com/questions/46654265/promise-all-consumes-all-my-ram
+
+```console
+Memory used after processing all records: 66.58 MB
+process: 3166.903ms
+```

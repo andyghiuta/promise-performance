@@ -28,12 +28,12 @@ const getRandomInt = (min, max) => {
 };
 
 // process a subrecord - creates a promise
-// which resolves after a random amount of time between 500 and 3000 msec
+// which resolves after a random amount of time between 2900 and 3000 msec
 // simmulate network request
 const processSubRecord = sr => new Promise((resolve) => {
   setTimeout(() => {
     resolve(sr.index);
-  }, getRandomInt(500, 3000));
+  }, getRandomInt(2900, 3000));
 });
 
 // processing a record means that all subrecords should be processed
@@ -45,9 +45,11 @@ const processRecord = async (r) => {
 
 // main function that processes all records
 const processAllRecords = async () => {
+  console.time('Process time');
   showMemoryUsage('before processing all records');
   const resultAll = await Promise.all(records.map(processRecord));
   showMemoryUsage('after processing all records');
+  console.timeEnd('Process time');
   return resultAll;
 };
 
